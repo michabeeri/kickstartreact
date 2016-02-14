@@ -1,5 +1,14 @@
-
 var Clock = React.createClass({
+    render: function() {
+        return (
+            <div>
+                Time is: {this.props.time.toString("hh:mm:ss tt")}
+            </div>
+        );
+    }
+});
+
+var ClockOperator = React.createClass({
     getInitialState: function() {
         return {
             time: new Date()
@@ -13,14 +22,12 @@ var Clock = React.createClass({
     render: function() {
         window.requestAnimationFrame(this.clockStep);
         return (
-            <div>
-                Time is: {this.state.time.toString("hh:mm:ss tt")}
-            </div>
+            <Clock time={this.state.time}/>
         );
     }
 });
 
 ReactDOM.render(
-    <Clock/>,
-    document.getElementById('ex6')
+    <ClockOperator/>,
+    document.getElementById('ex7')
 );
