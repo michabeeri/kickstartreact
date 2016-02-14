@@ -1,12 +1,12 @@
 var ListControl = React.createClass({
     addClickHandle(){
-        this.input && this.props.addItemHandle(this.input.value);
+        this.refs.input && this.props.addItemHandle(this.refs.input.value);
     },
     render() {
         return (
             <div>
                 <span>Task:</span>
-                <input ref={ref => this.input = ref}/>
+                <input ref="input"/>
                 <button onClick={this.addClickHandle}>Add</button>
             </div>
         );
@@ -15,14 +15,17 @@ var ListControl = React.createClass({
 
 var List = React.createClass({
     render() {
-        var items = _(this.props.items).orderBy('id', 'desc').map(itm =>
-            <li key={itm.id}
-                onClick={this.props.itemCheckHandle.bind(null, itm)}
-                style={{
-                    cursor: 'pointer',
-                    textDecoration: itm.isActive ? 'none' : 'line-through'
-                }}
-            >{itm.data}</li>).value();
+        var items = _(this.props.items)
+            .orderBy('id', 'desc')
+            .map(itm =>
+                <li key={itm.id}
+                    onClick={this.props.itemCheckHandle.bind(null, itm)}
+                    style={{
+                        cursor: 'pointer',
+                        textDecoration: itm.isActive ? 'none' : 'line-through'
+                    }}
+                >{itm.data}</li>)
+            .value();
 
         return <ul>{items}</ul>;
     }
@@ -52,16 +55,19 @@ var TodoApp = React.createClass({
         };
     },
     itemCheckHandle(item) {
-        item.isActive = !item.isActive;
-        this.forceUpdate();
+        var items = this.state.items.slice();
+        _.find(items, item).isActive = !item.isActive;
+        this.setState({items: items});
     },
     addItemHandle(data) {
-        this.state.items.push({
-            id: this.state.items.length,
-            data: data,
-            isActive: true});
-
-        this.forceUpdate();
+        this.setState({
+            items: [...this.state.items,
+                {
+                    id: this.state.items.length,
+                    data: data,
+                    isActive: true
+                }]
+        });
     },
     render() {
         return (
