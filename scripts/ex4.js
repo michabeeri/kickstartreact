@@ -1,21 +1,10 @@
 
-var Item = React.createClass({
-    render: function() {
-        return (<li>{this.props.content}</li>);
-    }
-});
+function Item(props) {
+    return <li>{props.content}</li>;
+}
 
-var List = React.createClass({
-    createItem: function(str, id){
-        return <Item key={id} content={str}/>;
-    },
-    render: function() {
-        return (<ul>{_.map(this.props.data, this.createItem)}</ul>);
-    }
-});
+function List(props) {
+    return <ul>{_.map(props.data, (str, i) => <Item key={i} content={str}/> )}</ul>;
+}
 
-var data = ["Hello", "There", "World"];
-ReactDOM.render(
-    <List data={data}/>,
-    document.getElementById('ex4')
-);
+ReactDOM.render(<List data={["Hello", "There", "World"]}/>, document.getElementById('ex4'));

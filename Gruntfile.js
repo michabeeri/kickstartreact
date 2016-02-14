@@ -3,6 +3,12 @@
 module.exports = function (grunt) {
 
     grunt.config.init({
+        watch: {
+            scripts: {
+                files: 'scripts/*.js',
+                tasks: 'babel',
+            }
+        },
         babel: {
             options: {
                 sourceMap: true
@@ -22,5 +28,6 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-babel');
-    grunt.registerTask('default', 'babel');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.registerTask('default', ['babel', 'watch']);
 };

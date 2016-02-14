@@ -44,23 +44,17 @@ var App = React.createClass({
     },
     boldCallback: function () {
         this.setState({
-            value: this.state.value,
-            bold: !this.state.bold,
-            italic: this.state.italic
+            bold: !this.state.bold
         });
     },
     italicCallback: function () {
         this.setState({
-            value: this.state.value,
-            bold: this.state.bold,
             italic: !this.state.italic
         });
     },
     textInputCallback: function(title){
         this.setState({
-            value: title,
-            bold: this.state.bold,
-            italic: this.state.italic
+            value: title
         });
     },
     render: function() {

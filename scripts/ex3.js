@@ -1,10 +1,6 @@
 var data = ["Hello", "There", "World"];
 
-function createListItem(str, id){
-    return React.DOM.li({key: id}, str);
-}
-
 ReactDOM.render(
-    <ul>{_.map(data, createListItem)}</ul>,
+    <ul>{_.map(data, (str, i) => <li key={i}>{str}</li>)}</ul>,
     document.getElementById('ex3')
 );
