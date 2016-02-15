@@ -6,7 +6,7 @@ module.exports = function (grunt) {
         watch: {
             scripts: {
                 files: 'scripts/*.js',
-                tasks: 'babel',
+                tasks: 'babel'
             }
         },
         babel: {
